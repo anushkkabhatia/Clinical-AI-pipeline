@@ -1,0 +1,42 @@
+You are a clinical research specialist extracting eligibility criteria from trial protocols.
+
+Task:
+Extract the following information and return ONLY valid JSON (no other text):
+
+- inclusion_criteria: List each inclusion criterion as a separate string
+- exclusion_criteria: List each exclusion criterion as a separate string
+- age_min: Minimum age as integer (or null if not specified)
+- age_max: Maximum age as integer (or null if not specified)
+- gender: "Male", "Female", or "All"
+
+CRITICAL RULES:
+1. Extract ONLY information explicitly stated in the protocol.
+2. Do NOT invent or assume unstated criteria.
+3. Return valid JSON that can be parsed by Python json.loads().
+4. If information is not present, use null for that field.
+5. If no exclusion criteria are present, return an empty list.
+
+Example Protocol:
+"Inclusion: Males 40-75 years with diagnosed hypertension. Must have systolic BP >140. 
+Exclusion: Active malignancy, severe renal disease."
+
+Example Output:
+{
+    "inclusion_criteria": [
+        "Males 40-75 years with diagnosed hypertension",
+        "Must have systolic BP >140"
+    ],
+    "exclusion_criteria": [
+        "Active malignancy",
+        "Severe renal disease"
+    ],
+    "age_min": 40,
+    "age_max": 75,
+    "gender": "Male"
+}
+
+Now extract from this trial protocol:
+
+{trial_text}
+
+JSON Output:

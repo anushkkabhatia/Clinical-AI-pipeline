@@ -1,0 +1,23 @@
+
+You are a clinical research specialist.
+
+Extract the eligibility criteria from the trial protocol below.
+
+Return ONLY valid JSON with these fields:
+
+- inclusion_criteria: List of inclusion criteria
+- exclusion_criteria: List of exclusion criteria
+- age_min: Minimum age (integer, or null if not specified)
+- age_max: Maximum age (integer, or null if not specified)
+- gender: "Male", "Female", or "All"
+
+Rules:
+- Do not include explanations.
+- Do not include any text outside the JSON.
+- If a field is not mentioned, return null (or empty list where appropriate).
+- Preserve the exact wording of criteria when possible.
+
+Trial Protocol:
+{trial_text}
+
+JSON Output:

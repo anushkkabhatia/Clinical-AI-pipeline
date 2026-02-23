@@ -1,0 +1,77 @@
+You are a clinical NLP specialist extracting structured eligibility information.
+
+TASK:
+Extract eligibility criteria from the trial protocol below and return ONLY valid JSON.
+
+OUTPUT SCHEMA:
+{
+  "inclusion_criteria": ["string", "string", "..."],
+  "exclusion_criteria": ["string", "string", "..."],
+  "age_min": integer or null,
+  "age_max": integer or null,
+  "gender": "Male" | "Female" | "All",
+  "extraction_confidence": "high" | "medium" | "low"
+}
+
+EXTRACTION RULES:
+1. inclusion_criteria: Each criterion must be a complete statement from the protocol.
+2. exclusion_criteria: Each criterion must be a complete statement from the protocol.
+3. Age: Extract numeric values only. If protocol states "18-65", then age_min=18 and age_max=65.
+4. Gender: Extract from protocol or set to "All" if not specified.
+5. extraction_confidence:
+   - "high" 
+  both inclusion AND exclusion criteria clearly stated\
+   - "medium" 
+  one of them missing
+   - "low" 
+  criteria unclear or ambiguous
+6. If criteria are vague or ambiguous, include a "notes" field explaining why.
+
+CRITICAL:
+- Do NOT add information not present in the protocol.
+- Do NOT interpret ambiguous statements.
+- Return ONLY valid JSON.
+- The output must be parseable using Python json.loads().
+
+Example 1:
+Protocol: "Healthy volunteers aged 18-40. No active cancer, no medications."
+
+Output:
+{
+  "inclusion_criteria": [
+    "Healthy volunteers",
+    "Aged 18-40"
+  ],
+  "exclusion_criteria": [
+    "Active cancer",
+    "Current medications"
+  ],
+  "age_min": 18,
+  "age_max": 40,
+  "gender": "All",
+  "extraction_confidence": "high"
+}
+
+Example 2:
+Protocol: "Patients with heart disease. Female only. Some medications allowed."
+
+Output:
+{
+  "inclusion_criteria": [
+    "Patients with heart disease"
+  ],
+  "exclusion_criteria": [],
+  "age_min": null,
+  "age_max": null,
+  "gender": "Female",
+  "extraction_confidence": "low",
+  "notes": "Medications policy unclear"
+}
+
+Now extract from this protocol:
+
+{trial_text}
+
+Return ONLY the JSON object. No additional text.
+
+JSON Output:

@@ -1,0 +1,23 @@
+[
+  {
+    "prompt": "basic",
+    "nct_id": "unknown",
+    "extraction": {
+      "inclusion_criteria": [
+        {
+          "age_min": 18,
+          "age_max": 75,
+          "gender": "Male"
+        },
+        {
+          "age_min": null,
+          "age_max": null,
+          "gender": "All"
+        }
+      ],
+      "exclusion_criteria": []
+    },
+    "status": "success",
+    "raw_output": "<|user|>\n\nYou are a clinical research specialist.\n\nExtract the eligibility criteria from the trial protocol below.\n\nReturn ONLY valid JSON with these fields:\n\n- inclusion_criteria: List of inclusion criteria\n- exclusion_criteria: List of exclusion criteria\n- age_min: Minimum age (integer, or null if not specified)\n- age_max: Maximum age (integer, or null if not specified)\n- gender: \"Male\", \"Female\", or \"All\"\n\nRules:\n- Do not include explanations.\n- Do not include any text outside the JSON.\n- If a field is not mentioned, return null (or empty list where appropriate).\n- Preserve the exact wording of criteria when possible.\n\nTrial Protocol:\nAsthma; COPD\n\nJSON Output: \n<|assistant|>\nExtracted eligibility criteria:\n\n- Inclusion Criteria:\n  - Age: Minimum age is 18 years old.\n  - Age: Maximum age is 75 years old.\n  - Gender: \"Male\" or \"Female\" or \"All\".\n\nExcluded criteria:\n\n- Age: Not specified.\n- Gender: Not specified.\n\nReturned JSON:\n\n{\n  \"inclusion_criteria\": [\n    {\n      \"age_min\": 18,\n      \"age_max\": 75,\n      \"gender\": \"Male\"\n    },\n    {\n      \"age_min\": null,\n      \"age_max\": null,\n      \"gender\": \"All\"\n    }\n  ],\n  \"exclusion_criteria\": []\n}"
+  }
+]
